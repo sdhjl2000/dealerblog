@@ -17,6 +17,17 @@ namespace DealerBlogTest
                 Console.WriteLine(p.Title);
             }
         }
+
+        [Test]
+        public void test_post_postorder()
+        {
+            var list = DealerBlog.DAL.PostDAL.Instance.Posts(1, 100, "Title", true);
+            foreach (var p in list)
+            {
+                Console.WriteLine(p.Title);
+            }
+        }
+
         [Test]
         public void test_post_forcag()
         {

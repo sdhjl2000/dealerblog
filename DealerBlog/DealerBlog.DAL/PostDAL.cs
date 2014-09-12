@@ -157,210 +157,29 @@ namespace DealerBlog.DAL
         /// <returns></returns>
         public IList<Post> Posts(int pageNo, int pageSize, string sortColumn, bool sortByAscending)
         {
-            IList<Post> posts=new Post[10];
-            //IList<int> postIds;
-
-            //switch (sortColumn)
-            //{
-            //    case "Title":
-            //        if (sortByAscending)
-            //        {
-            //            posts = _session.Query<Post>()
-            //                            .OrderBy(p => p.Title)
-            //                            .Skip(pageNo * pageSize)
-            //                            .Take(pageSize)
-            //                            .Fetch(p => p.Category)
-            //                            .ToList();
-
-            //            postIds = posts.Select(p => p.Id).ToList();
-
-            //            posts = _session.Query<Post>()
-            //                             .Where(p => postIds.Contains(p.Id))
-            //                             .OrderBy(p => p.Title)
-            //                             .FetchMany(p => p.Tags)
-            //                             .ToList();
-            //        }
-            //        else
-            //        {
-            //            posts = _session.Query<Post>()
-            //                            .OrderByDescending(p => p.Title)
-            //                            .Skip(pageNo * pageSize)
-            //                            .Take(pageSize)
-            //                            .Fetch(p => p.Category)
-            //                            .ToList();
-
-            //            postIds = posts.Select(p => p.Id).ToList();
-
-            //            posts = _session.Query<Post>()
-            //                             .Where(p => postIds.Contains(p.Id))
-            //                             .OrderByDescending(p => p.Title)
-            //                             .FetchMany(p => p.Tags)
-            //                             .ToList();
-            //        }
-            //        break;
-            //    case "Published":
-            //        if (sortByAscending)
-            //        {
-            //            posts = _session.Query<Post>()
-            //                            .OrderBy(p => p.Published)
-            //                            .Skip(pageNo * pageSize)
-            //                            .Take(pageSize)
-            //                            .Fetch(p => p.Category)
-            //                            .ToList();
-
-            //            postIds = posts.Select(p => p.Id).ToList();
-
-            //            posts = _session.Query<Post>()
-            //                             .Where(p => postIds.Contains(p.Id))
-            //                             .OrderBy(p => p.Published)
-            //                             .FetchMany(p => p.Tags)
-            //                             .ToList();
-            //        }
-            //        else
-            //        {
-            //            posts = _session.Query<Post>()
-            //                            .OrderByDescending(p => p.Published)
-            //                            .Skip(pageNo * pageSize)
-            //                            .Take(pageSize)
-            //                            .Fetch(p => p.Category)
-            //                            .ToList();
-
-            //            postIds = posts.Select(p => p.Id).ToList();
-
-            //            posts = _session.Query<Post>()
-            //                             .Where(p => postIds.Contains(p.Id))
-            //                             .OrderByDescending(p => p.Published)
-            //                             .FetchMany(p => p.Tags)
-            //                             .ToList();
-            //        }
-            //        break;
-            //    case "PostedOn":
-            //        if (sortByAscending)
-            //        {
-            //            posts = _session.Query<Post>()
-            //                            .OrderBy(p => p.PostedOn)
-            //                            .Skip(pageNo * pageSize)
-            //                            .Take(pageSize)
-            //                            .Fetch(p => p.Category)
-            //                            .ToList();
-
-            //            postIds = posts.Select(p => p.Id).ToList();
-
-            //            posts = _session.Query<Post>()
-            //                             .Where(p => postIds.Contains(p.Id))
-            //                             .OrderBy(p => p.PostedOn)
-            //                             .FetchMany(p => p.Tags)
-            //                             .ToList();
-            //        }
-            //        else
-            //        {
-            //            posts = _session.Query<Post>()
-            //                            .OrderByDescending(p => p.PostedOn)
-            //                            .Skip(pageNo * pageSize)
-            //                            .Take(pageSize)
-            //                            .Fetch(p => p.Category)
-            //                            .ToList();
-
-            //            postIds = posts.Select(p => p.Id).ToList();
-
-            //            posts = _session.Query<Post>()
-            //                            .Where(p => postIds.Contains(p.Id))
-            //                            .OrderByDescending(p => p.PostedOn)
-            //                            .FetchMany(p => p.Tags)
-            //                            .ToList();
-            //        }
-            //        break;
-            //    case "Modified":
-            //        if (sortByAscending)
-            //        {
-            //            posts = _session.Query<Post>()
-            //                            .OrderBy(p => p.Modified)
-            //                            .Skip(pageNo * pageSize)
-            //                            .Take(pageSize)
-            //                            .Fetch(p => p.Category)
-            //                            .ToList();
-
-            //            postIds = posts.Select(p => p.Id).ToList();
-
-            //            posts = _session.Query<Post>()
-            //                             .Where(p => postIds.Contains(p.Id))
-            //                             .OrderBy(p => p.Modified)
-            //                             .FetchMany(p => p.Tags)
-            //                             .ToList();
-            //        }
-            //        else
-            //        {
-            //            posts = _session.Query<Post>()
-            //                            .OrderByDescending(p => p.Modified)
-            //                            .Skip(pageNo * pageSize)
-            //                            .Take(pageSize)
-            //                            .Fetch(p => p.Category)
-            //                            .ToList();
-
-            //            postIds = posts.Select(p => p.Id).ToList();
-
-            //            posts = _session.Query<Post>()
-            //                             .Where(p => postIds.Contains(p.Id))
-            //                             .OrderByDescending(p => p.Modified)
-            //                             .FetchMany(p => p.Tags)
-            //                             .ToList();
-            //        }
-            //        break;
-            //    case "Category":
-            //        if (sortByAscending)
-            //        {
-            //            posts = _session.Query<Post>()
-            //                            .OrderBy(p => p.Category.Name)
-            //                            .Skip(pageNo * pageSize)
-            //                            .Take(pageSize)
-            //                            .Fetch(p => p.Category)
-            //                            .ToList();
-
-            //            postIds = posts.Select(p => p.Id).ToList();
-
-            //            posts = _session.Query<Post>()
-            //                             .Where(p => postIds.Contains(p.Id))
-            //                             .OrderBy(p => p.Category.Name)
-            //                             .FetchMany(p => p.Tags)
-            //                             .ToList();
-            //        }
-            //        else
-            //        {
-            //            posts = _session.Query<Post>()
-            //                            .OrderByDescending(p => p.Category.Name)
-            //                            .Skip(pageNo * pageSize)
-            //                            .Take(pageSize)
-            //                            .Fetch(p => p.Category)
-            //                            .ToList();
-
-            //            postIds = posts.Select(p => p.Id).ToList();
-
-            //            posts = _session.Query<Post>()
-            //                             .Where(p => postIds.Contains(p.Id))
-            //                             .OrderByDescending(p => p.Category.Name)
-            //                             .FetchMany(p => p.Tags)
-            //                             .ToList();
-            //        }
-            //        break;
-            //    default:
-            //        posts = _session.Query<Post>()
-            //                        .OrderByDescending(p => p.PostedOn)
-            //                        .Skip(pageNo * pageSize)
-            //                        .Take(pageSize)
-            //                        .Fetch(p => p.Category)
-            //                        .ToList();
-
-            //        postIds = posts.Select(p => p.Id).ToList();
-
-            //        posts = _session.Query<Post>()
-            //                         .Where(p => postIds.Contains(p.Id))
-            //                         .OrderByDescending(p => p.PostedOn)
-            //                         .FetchMany(p => p.Tags)
-            //                         .ToList();
-            //        break;
-            //}
-
-            return posts;
+            SqlLamBase.SetAdapter(SqlAdapter.SqlServer2008);
+         
+            var query = new SqlLam<Post>();
+            
+            switch (sortColumn)
+            {
+                case "Title":
+                    query = sortByAscending ? query.OrderBy(x => x.Title) : query.OrderByDescending(x => x.Title);
+                    break;
+                case "Published":
+                    query = sortByAscending ? query.OrderBy(x => x.Published) : query.OrderByDescending(x => x.Published);
+                    break;
+                case "Modified":
+                    query = sortByAscending ? query.OrderBy(x => x.Modified) : query.OrderByDescending(x => x.Modified);
+                    break;
+                default:
+                    query = sortByAscending ? query.OrderBy(x => x.PostedOn) : query.OrderByDescending(x => x.PostedOn);
+                  
+                    break;
+            }
+            var posts = CONN.SQLQuery<Post>(query.QueryStringPage(pageSize, pageNo), query.QueryParameters);
+            return posts.ToList();
+            
         }
 
         /// <summary>
