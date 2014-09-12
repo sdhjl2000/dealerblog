@@ -9,6 +9,6 @@ namespace DealerBlog.BLL
 {
     public  interface ICategory:IBaseBLL<Category>
     {
-        
+
     }
 }
