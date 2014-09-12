@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="11.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8123024A-1F8F-4594-BD59-663226C6779F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DealerBlog.DAL</RootNamespace>
+    <AssemblyName>DealerBlog.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Auto.Lib3.DataAccess">
+      <HintPath>..\..\packages\Auto.Lib3.DataAccess.13.8.30.1300\lib\Auto.Lib3.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Autohome.CSH.Framework">
+      <HintPath>..\..\packages\Auto.CSH.Framework.1.0.0\lib\Autohome.CSH.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Autohome.CSH.Framework.Data">
+      <HintPath>..\..\packages\Auto.CSH.Framework.Data.1.0.2\lib\Autohome.CSH.Framework.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="LambdaSqlBuilder">
+      <HintPath>..\..\packages\Auto.CSH.Framework.Data.1.0.2\lib\LambdaSqlBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Generate\DbConnectonExtensions.cs" />
+    <Compile Include="Generate\CategoryDAL.cs" />
+    <Compile Include="CategoryDAL.cs" />
+    <Compile Include="Generate\PostDAL.cs" />
+    <Compile Include="PostDAL.cs" />
+    <Compile Include="Generate\PostTagMapDAL.cs" />
+    <Compile Include="PostTagMapDAL.cs" />
+    <Compile Include="Generate\TagDAL.cs" />
+    <Compile Include="TagDAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DealerBlog.Entity\DealerBlog.Entity.csproj">
+      <Project>{69049617-904b-401f-9415-d4c68c58e095}</Project>
+      <Name>DealerBlog.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

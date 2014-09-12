@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Auto.CSH.Framework.Data</id>
+    <version>1.0.2</version>
+    <authors>tom</authors>
+    <owners>tom</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>修改lamb表达式，支持从中获取sql语句的各个环节，例如QueryColumn是列等</description>
+    <dependencies>
+      <dependency id="Auto.CSH.Framework" version="1.0.0" />
+      <dependency id="Auto.Lib3.DataAccess" version="13.8.30.1300" />
+    </dependencies>
+  </metadata>
+</package>

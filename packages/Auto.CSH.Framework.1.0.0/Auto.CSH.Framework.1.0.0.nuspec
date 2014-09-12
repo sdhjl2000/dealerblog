@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Auto.CSH.Framework</id>
+    <version>1.0.0</version>
+    <title>Autohome CSH Framework</title>
+    <authors>tom</authors>
+    <owners>tom</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>汽车之家基础框架，此程序集包含公共方法和框架基础服务程序</description>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Web" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Web.Extensions" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Data" targetFramework="" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

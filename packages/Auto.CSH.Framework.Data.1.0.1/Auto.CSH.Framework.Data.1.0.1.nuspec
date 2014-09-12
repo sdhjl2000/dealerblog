@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Auto.CSH.Framework.Data</id>
+    <version>1.0.1</version>
+    <authors>tom</authors>
+    <owners>tom</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>修复了insert时事务的bug，如果你在项目中没有启用分布式事务，请不用理会。</description>
+    <dependencies>
+      <dependency id="Auto.CSH.Framework" version="1.0.0" />
+      <dependency id="Auto.Lib3.DataAccess" version="13.8.30.1300" />
+    </dependencies>
+  </metadata>
+</package>

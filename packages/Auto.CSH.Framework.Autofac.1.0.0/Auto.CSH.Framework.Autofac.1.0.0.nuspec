@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Auto.CSH.Framework.Autofac</id>
+    <version>1.0.0</version>
+    <authors>tom</authors>
+    <owners>tom</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>对于Autofac支持的封装包含程序集加载，Aop监控</description>
+    <dependencies>
+      <dependency id="Autofac.Aop" version="1.0.1" />
+      <dependency id="Auto.CSH.Framework" version="1.0.0" />
+      <dependency id="Auto.Lib3.Logging" version="1.0.0" />
+    </dependencies>
+  </metadata>
+</package>

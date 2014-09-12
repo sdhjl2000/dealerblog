@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Auto.CSH.Framework.Data_four</id>
+    <version>1.0.0</version>
+    <authors>tom</authors>
+    <owners>tom</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>支持dotnet4.0</description>
+    <dependencies>
+      <dependency id="Auto.CHS.Framework_four" version="1.0.0" />
+      <dependency id="Auto.Lib3.DataAccess" version="13.8.30.1300" />
+    </dependencies>
+  </metadata>
+</package>
