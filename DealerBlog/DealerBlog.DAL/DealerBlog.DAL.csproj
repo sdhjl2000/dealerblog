@@ -31,25 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Auto.Lib3.DataAccess, Version=13.8.30.1300, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Autohome.CSH.Framework\Autohome.CSH.Framework.Data\bin\Debug\Auto.Lib3.DataAccess.dll</HintPath>
+    <Reference Include="Auto.Lib3.DataAccess">
+      <HintPath>..\..\packages\Auto.Lib3.DataAccess.13.8.30.1300\lib\Auto.Lib3.DataAccess.dll</HintPath>
     </Reference>
-    <Reference Include="Auto.Lib3.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Autohome.CSH.Framework\Autohome.CSH.Framework.Data\bin\Debug\Auto.Lib3.Logging.dll</HintPath>
+    <Reference Include="Autohome.CSH.Framework">
+      <HintPath>..\..\packages\Auto.CSH.Framework.1.0.0\lib\Autohome.CSH.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="Autohome.CSH.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Autohome.CSH.Framework\Autohome.CSH.Framework.Data\bin\Debug\Autohome.CSH.Framework.dll</HintPath>
+    <Reference Include="Autohome.CSH.Framework.Data">
+      <HintPath>..\..\packages\Auto.CSH.Framework.Data.1.0.2\lib\Autohome.CSH.Framework.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Autohome.CSH.Framework.Data, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Autohome.CSH.Framework\Autohome.CSH.Framework.Data\bin\Debug\Autohome.CSH.Framework.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="LambdaSqlBuilder, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Autohome.CSH.Framework\Autohome.CSH.Framework.Data\bin\Debug\LambdaSqlBuilder.dll</HintPath>
+    <Reference Include="LambdaSqlBuilder">
+      <HintPath>..\..\packages\Auto.CSH.Framework.Data.1.0.2\lib\LambdaSqlBuilder.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

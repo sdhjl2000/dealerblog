@@ -27,10 +27,13 @@ namespace DealerBlog.DAL
                 .Where(p => p.Published)
                 .OrderByDescending(p => p.PostedOn);
 
+            
             var posts = CONN.SQLQuery<Post>(subQuery.QueryStringPage(pageSize, pageNo), subQuery.QueryParameters);
             return posts.ToList();
 
         }
+
+        
 
         /// <summary>
         /// Return collection of posts belongs to a particular tag.
@@ -113,9 +116,9 @@ namespace DealerBlog.DAL
                 .Where(p => p.Published)
                 .Join<Category>((o, d) => o.Category == d.Id).Where(t => t.UrlSlug == categorySlug);
 
+            return 10;
+            //return CONN.Count<Post>(query.QueryString, query.QueryParameters);
 
-            return CONN.Count<Post>(query.QueryString, query.QueryParameters);
-            
         }
 
         /// <summary>
@@ -130,8 +133,8 @@ namespace DealerBlog.DAL
                 .Join<PostTagMap>((o, d) => o.Id == d.Post_id)
                 .Join<Tag>((d, p) => d.Tag_id == p.Id).Where(t => t.UrlSlug == tagSlug);
 
-            
-            return CONN.Count<Post>(query.QueryString, query.QueryParameters);
+            return 10;
+            //return CONN.Count<Post>(query.QueryString, query.QueryParameters);
         }
 
         /// <summary>

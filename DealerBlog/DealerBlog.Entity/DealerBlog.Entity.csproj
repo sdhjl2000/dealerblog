@@ -31,9 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autohome.CSH.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Autohome.CSH.Framework\Autohome.CSH.Framework.Data\bin\Debug\Autohome.CSH.Framework.dll</HintPath>
+    <Reference Include="Autohome.CSH.Framework">
+      <HintPath>..\..\packages\Auto.CSH.Framework.1.0.0\lib\Autohome.CSH.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
