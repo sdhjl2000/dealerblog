@@ -102,7 +102,7 @@ namespace DealerBlog.DAL
         /// <returns></returns>
         public int TotalPosts(bool checkIsPublished = true)
         {
-            return CONN.Count<Post>(p => checkIsPublished || p.Published == true);
+            return CONN.Count<Post>(p => p.Published == checkIsPublished);
         }
 
         /// <summary>

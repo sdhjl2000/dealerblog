@@ -42,6 +42,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Auto.Lib3.DataAccess">
+      <HintPath>..\..\packages\Auto.Lib3.DataAccess.13.8.30.1300\lib\Auto.Lib3.DataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="Auto.Lib3.Logging">
       <HintPath>..\..\packages\Auto.Lib3.Logging.1.0.0\lib\Auto.Lib3.Logging.dll</HintPath>
     </Reference>

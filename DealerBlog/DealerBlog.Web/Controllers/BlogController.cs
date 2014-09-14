@@ -21,9 +21,9 @@ namespace DealerBlog.Web.Web.Controllers
 
         //
         // GET: /Blog/
-        public virtual ActionResult Index(int page = 0)
+        public virtual ActionResult Index(int page = 1)
         {
-            var list= _postbll.Posts(page, 10);
+            var list= _postbll.Posts(page-1, 10);
             var postcount = _postbll.TotalPosts();
             
             var postvm = new PostVm() { Posts = list, TotalPosts=postcount,PageSize = 10, PageNumer = page};
