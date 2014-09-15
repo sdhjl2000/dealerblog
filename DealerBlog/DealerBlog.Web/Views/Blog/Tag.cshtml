@@ -1,0 +1,31 @@
+﻿@model DealerBlog.Web.Web.Models.PostVm
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ <br/>
+<p>
+    @Html.ActionLink("新建", "Create")
+</p>
+<div id="content">
+
+    <h1>@ViewBag.Title</h1>
+
+    @if (Model.Posts.Count > 0)
+    {
+        foreach (var post in Model.Posts)
+        {
+            @Html.Partial("PostPartial", post)
+        }
+    }
+    else
+    {
+        <p>No posts found!</p>
+    }
+
+</div>
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumer, Model.TotalPosts)
+</div>

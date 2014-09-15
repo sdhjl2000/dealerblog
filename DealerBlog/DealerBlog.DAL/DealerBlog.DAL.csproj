@@ -37,11 +37,13 @@
     <Reference Include="Autohome.CSH.Framework">
       <HintPath>..\..\packages\Auto.CSH.Framework.1.0.0\lib\Autohome.CSH.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="Autohome.CSH.Framework.Data">
-      <HintPath>..\..\packages\Auto.CSH.Framework.Data.1.0.2\lib\Autohome.CSH.Framework.Data.dll</HintPath>
+    <Reference Include="Autohome.CSH.Framework.Data, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Auto.CSH.Framework.Data.1.0.4\lib\net45\Autohome.CSH.Framework.Data.dll</HintPath>
     </Reference>
-    <Reference Include="LambdaSqlBuilder">
-      <HintPath>..\..\packages\Auto.CSH.Framework.Data.1.0.2\lib\LambdaSqlBuilder.dll</HintPath>
+    <Reference Include="LambdaSqlBuilder, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Auto.CSH.Framework.Data.1.0.4\lib\net45\LambdaSqlBuilder.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

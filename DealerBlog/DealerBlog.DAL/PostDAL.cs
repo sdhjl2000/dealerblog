@@ -11,7 +11,7 @@ namespace DealerBlog.DAL
     public partial class PostDAL
     {
         private static DatabaseProperty CONN = DBSettings.GetDatabaseProperty("Local");
- 
+
 
         /// <summary>
         /// Return collection of posts based on pagination parameters.
@@ -22,18 +22,50 @@ namespace DealerBlog.DAL
         public IList<Post> Posts(int pageNo, int pageSize)
         {
 
-            SqlLamBase.SetAdapter(SqlAdapter.SqlServer2008);
             var subQuery = new SqlLam<Post>()
                 .Where(p => p.Published)
-                .OrderByDescending(p => p.PostedOn);
+                .OrderByDescending(p => p.PostedOn)
+                .Select(p => p)
+                .Join<Category>((p, c) => p.Category == c.CategoryId)
+                .Select(t => t);
+
+
+            var posts = CONN.SQLQuery<Post, Category, Post>(subQuery.QueryStringPage(pageSize, pageNo),
+                (p, c) => { p.BlogCategory = c; p.Tags = GetTags(p); return p; }, subQuery.QueryParameters, splitOn: "CategoryId");
+            return posts.ToList();
+
+
+            //var subQuery = new SqlLam<Category>()
+            //    .Select(c => c).Join<Post>((c, p) => c.CategoryId == p.Category)
+            //    .Where(p => p.Published)
+            //    .OrderByDescending(p => p.PostedOn)
+            //    .Select(p => p);
 
             
-            var posts = CONN.SQLQuery<Post>(subQuery.QueryStringPage(pageSize, pageNo), subQuery.QueryParameters);
-            return posts.ToList();
+
+            //var posts = CONN.SQLQuery<Category, Post, Post>(subQuery.QueryStringPage(pageSize, pageNo),
+            //    (c, p) =>
+            //    {
+            //        p.BlogCategory = c;
+            //        p.Tags=GetTags(p);
+            //        return p;
+            //    }, subQuery.QueryParameters, splitOn: "Id");
+            //return posts.ToList();
 
         }
 
-        
+        public List<Tag> GetTags(Post p)
+        {
+            var subQuery = new SqlLam<PostTagMap>().Where(x=>x.Post_id==p.Id).SelectDistinct(x=>x.Tag_id);
+            var query = new SqlLam<Tag>().WhereIsIn(x => x.TagId, subQuery);
+            return CONN.SQLQuery<Tag>(query.QueryString, query.QueryParameters).ToList();
+        }
+
+        public Category GetCategory(Post p)
+        {
+            
+            return CONN.Where<Category>(x=>x.CategoryId==p.Category).First();
+        }
 
         /// <summary>
         /// Return collection of posts belongs to a particular tag.
@@ -44,16 +76,16 @@ namespace DealerBlog.DAL
         /// <returns></returns>
         public IList<Post> PostsForTag(string tagSlug, int pageNo, int pageSize)
         {
-            SqlLamBase.SetAdapter(SqlAdapter.SqlServer2008);
 
             var query = new SqlLam<Post>()
                 .Select(o => o).Where(p => p.Published).OrderBy(x => x.PostedOn)
                 .Join<PostTagMap>((o, d) => o.Id == d.Post_id)
-                .Join<Tag>((d, p) => d.Tag_id == p.Id).Where(t => t.UrlSlug == tagSlug);
+                .Join<Tag>((d, p) => d.Tag_id == p.TagId).Where(t => t.TagUrlSlug == tagSlug).Select(t=>t);
 
-            var posts = CONN.SQLQuery<Post>(query.QueryStringPage(pageSize, pageNo), query.QueryParameters);
+            var posts = CONN.SQLQuery<Post, Tag, Post>(query.QueryStringPage(pageSize, pageNo), (p, t) =>
+            { p.BlogCategory = GetCategory(p); p.Tags.Add(t); return p; }, query.QueryParameters, splitOn: "TagId");
             return posts.ToList();
-          
+
         }
 
         /// <summary>
@@ -65,11 +97,10 @@ namespace DealerBlog.DAL
         /// <returns></returns>
         public IList<Post> PostsForCategory(string categorySlug, int pageNo, int pageSize)
         {
-            SqlLamBase.SetAdapter(SqlAdapter.SqlServer2008);
 
             var query = new SqlLam<Post>()
                 .Select(o => o).Where(p => p.Published).OrderBy(x => x.PostedOn)
-                .Join<Category>((o, d) => o.Category == d.Id).Where(t => t.UrlSlug == categorySlug);
+                .Join<Category>((o, d) => o.Category == d.CategoryId).Where(t => t.CatUrlSlug == categorySlug);
 
             var posts = CONN.SQLQuery<Post>(query.QueryStringPage(pageSize, pageNo), query.QueryParameters);
             return posts.ToList();
@@ -85,14 +116,14 @@ namespace DealerBlog.DAL
         public IList<Post> PostsForSearch(string search, int pageNo, int pageSize)
         {
             var query = new SqlLam<Post>()
-             .Select(o => o).Where(p => p.Published&& (p.Title.Contains(search))).OrderBy(x => x.PostedOn)
-             .Join<Category>((o, d) => o.Category == d.Id).Where(t => t.UrlSlug.Contains(search))
+             .Select(o => o).Where(p => p.Published && (p.Title.Contains(search))).OrderBy(x => x.PostedOn)
+             .Join<Category>((o, d) => o.Category == d.CategoryId).Where(t => t.CatUrlSlug.Contains(search))
              .Select(p => p);
 
             var posts = CONN.SQLQuery<Post>(query.QueryStringPage(pageSize, pageNo), query.QueryParameters);
             return posts.ToList();
 
-         
+
         }
 
         /// <summary>
@@ -114,10 +145,10 @@ namespace DealerBlog.DAL
         {
             var query = new SqlLam<Post>()
                 .Where(p => p.Published)
-                .Join<Category>((o, d) => o.Category == d.Id).Where(t => t.UrlSlug == categorySlug);
+                .Join<Category>((o, d) => o.Category == d.CategoryId).Where(t => t.CatUrlSlug == categorySlug);
 
-            return 10;
-            //return CONN.Count<Post>(query.QueryString, query.QueryParameters);
+            //return 10;
+            return CONN.Count<Post>(query.QueryString, query.QueryParameters);
 
         }
 
@@ -131,10 +162,10 @@ namespace DealerBlog.DAL
             var query = new SqlLam<Post>()
                 .Where(p => p.Published)
                 .Join<PostTagMap>((o, d) => o.Id == d.Post_id)
-                .Join<Tag>((d, p) => d.Tag_id == p.Id).Where(t => t.UrlSlug == tagSlug);
+                .Join<Tag>((d, p) => d.Tag_id == p.TagId).Where(t => t.TagUrlSlug == tagSlug);
 
-            return 10;
-            //return CONN.Count<Post>(query.QueryString, query.QueryParameters);
+            //return 10;
+            return CONN.Count<Post>(query.QueryString, query.QueryParameters);
         }
 
         /// <summary>
@@ -161,9 +192,9 @@ namespace DealerBlog.DAL
         public IList<Post> Posts(int pageNo, int pageSize, string sortColumn, bool sortByAscending)
         {
             SqlLamBase.SetAdapter(SqlAdapter.SqlServer2008);
-         
+
             var query = new SqlLam<Post>();
-            
+
             switch (sortColumn)
             {
                 case "Title":
@@ -177,12 +208,12 @@ namespace DealerBlog.DAL
                     break;
                 default:
                     query = sortByAscending ? query.OrderBy(x => x.PostedOn) : query.OrderByDescending(x => x.PostedOn);
-                  
+
                     break;
             }
             var posts = CONN.SQLQuery<Post>(query.QueryStringPage(pageSize, pageNo), query.QueryParameters);
             return posts.ToList();
-            
+
         }
 
         /// <summary>

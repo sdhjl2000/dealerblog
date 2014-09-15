@@ -1,14 +1,14 @@
-﻿@model DealerBlog.Web.Web.Models.PostVm
+﻿@using DealerBlog.Web.Web
+@model DealerBlog.Web.Web.Models.PostVm
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
+ <br/>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("新建", "Create")
 </p>
 <div id="content">
 
@@ -28,5 +28,5 @@
 
 </div>
 <div class="pager">
-    @Html.Pager(Model.PageSize, Model.PageNumer, Model.TotalPosts)
+    @Html.Pager(Model.PageSize, Model.PageNumer, Model.TotalPosts).Options(x => )
 </div>

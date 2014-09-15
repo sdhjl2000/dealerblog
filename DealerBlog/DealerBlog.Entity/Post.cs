@@ -6,6 +6,11 @@ namespace DealerBlog.Entity
     [Table("Post")]
     public partial class Post
     {
+        public Post()
+        {
+            Tags=new List<Tag>();
+        }
+
         public virtual Category BlogCategory { get; set; }
 
         public virtual IList<Tag> Tags

@@ -1,34 +1,21 @@
-﻿@model DealerBlog.Entity.Post
+﻿@using DealerBlog.Web.Web
+@model DealerBlog.Entity.Post
 
 <table class="table">
      
     <tr>
-        <td>
-            @Html.DisplayFor(model => model.Title)
+        <td style="width: 50%">
+           @Html.ActionLink(Model.Title,"Details",new {Id=Model.Id})
         </td>
-        <td>
-            @Html.DisplayFor(model => model.ShortDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.Meta)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.UrlSlug)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.Published)
-        </td>
-        <td>
+        <td style="width: 20%">
             @Html.DisplayFor(model => model.PostedOn)
         </td>
-        <td>
-            @Html.DisplayFor(model => model.Modified)
+  
+        <td >
+           @Html.CategoryLink(Model.BlogCategory)
         </td>
         <td>
-            @Html.DisplayFor(model => model.Category)
+           @Helpers.Tags(Html,Model.Tags)
         </td>
        
     </tr>

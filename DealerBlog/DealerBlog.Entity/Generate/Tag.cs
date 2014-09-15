@@ -16,19 +16,19 @@ namespace DealerBlog.Entity
 		///</summary>        
         [Key]
         [Identity]
-		public int Id { get; set; }
+		public int TagId { get; set; }
 		///<summary>
 		///
 		///</summary>        
-		public string Name { get; set; }
+		public string TagName { get; set; }
 		///<summary>
 		///
 		///</summary>        
-		public string UrlSlug { get; set; }
+		public string TagUrlSlug { get; set; }
 		///<summary>
 		///
 		///</summary>        
-		public string Description { get; set; }
+		public string TagDescription { get; set; }
         #endregion
         
 	}

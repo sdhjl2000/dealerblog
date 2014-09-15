@@ -23,10 +23,28 @@ namespace DealerBlog.Web.Web.Controllers
         // GET: /Blog/
         public virtual ActionResult Index(int page = 1)
         {
-            var list= _postbll.Posts(page-1, 10);
+            var list= _postbll.Posts(page, 5);
             var postcount = _postbll.TotalPosts();
             
-            var postvm = new PostVm() { Posts = list, TotalPosts=postcount,PageSize = 10, PageNumer = page};
+            var postvm = new PostVm() { Posts = list, TotalPosts=postcount,PageSize = 5, PageNumer = page};
+            return View(postvm);
+        }
+
+        public virtual ActionResult Category(string category, int page = 1)
+        {
+            var list = _postbll.PostsForCategory(category, page, 5);
+            var postcount = _postbll.TotalPostsForCategory(category);
+
+            var postvm = new PostVm() { Posts = list, TotalPosts = postcount, PageSize = 5, PageNumer = page };
+            return View(postvm);
+        }
+
+        public virtual ActionResult Tag(string tag,int page = 1)
+        {
+            var list = _postbll.PostsForTag(tag,page, 5);
+            var postcount = _postbll.TotalPostsForTag(tag);
+
+            var postvm = new PostVm() { Posts = list, TotalPosts = postcount, PageSize = 5, PageNumer = page };
             return View(postvm);
         }
 

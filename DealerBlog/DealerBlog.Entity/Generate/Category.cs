@@ -16,7 +16,7 @@ namespace DealerBlog.Entity
 		///</summary>        
         [Key]
         [Identity]
-		public int Id { get; set; }
+		public int CategoryId { get; set; }
 		///<summary>
 		///
 		///</summary>        
@@ -24,11 +24,11 @@ namespace DealerBlog.Entity
 		///<summary>
 		///
 		///</summary>        
-		public string UrlSlug { get; set; }
+		public string CatUrlSlug { get; set; }
 		///<summary>
 		///
 		///</summary>        
-		public string Description { get; set; }
+		public string CatDescription { get; set; }
         #endregion
         
 	}
