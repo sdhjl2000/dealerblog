@@ -66,10 +66,11 @@ namespace DealerBlogTest
         [Test]
         public void test_post_forsearch()
         {
-            var count = DealerBlog.DAL.PostDAL.Instance.TotalPostsForSearch("asp");
+            var str = "i";
+            var count = DealerBlog.DAL.PostDAL.Instance.TotalPostsForSearch(str);
             Console.WriteLine(count);
 
-            var list = DealerBlog.DAL.PostDAL.Instance.PostsForSearch("asp", 1, 100);
+            var list = DealerBlog.DAL.PostDAL.Instance.PostsForSearch(str, 1, 100);
             Console.WriteLine(list.Count);
         }
     }

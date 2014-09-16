@@ -13,7 +13,7 @@ namespace DealerBlog.Entity
 		#region 属性
 		///<summary>
 		///
-		///</summary>        
+		///</summary>      
 		public int Post_id { get; set; }
 		///<summary>
 		///

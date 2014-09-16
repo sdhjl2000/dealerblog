@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Auto.Lib3.DataAccess;
 using Autohome.CSH.Framework.Data;
 using DealerBlog.Entity;
@@ -134,11 +135,16 @@ namespace DealerBlog.DAL
                 .Where(p => p.Published).Or(p => p.Title.Contains(search)).SelectDistinct(p=>p.Id)
                 .Join<PostTagMap>((o, d) => o.Id == d.Post_id)
                 .Join<Tag>((d, p) => d.Tag_id == p.TagId).Or(t => t.TagUrlSlug == search);
-            var query = new SqlLam<Post>().WhereIsIn(p => p.Id, subquery).OrderBy(x => x.PostedOn);
-            var posts = CONN.SQLQuery<Post>(query.QueryStringPage(pageSize, pageNo), query.QueryParameters);
-            return posts.ToList();
+            var query = new SqlLam<Post>().WhereIsIn(p => p.Id, subquery).OrderBy(x => x.PostedOn);//TODO：效率存在问题
 
-           
+
+
+            var posts = CONN.SQLQuery<Post>(query.QueryStringPage(pageSize, pageNo), query.QueryParameters).ToList();
+            posts.ForEach((x) => { x.BlogCategory = GetCategory(x);
+                                                     x.Tags = GetTags(x);
+            });
+            return posts;
+
         }
         /// <summary>
         /// 获取关键词查询的总数
@@ -147,6 +153,7 @@ namespace DealerBlog.DAL
         /// <returns></returns>
         public int TotalPostsForSearch(string search)
         {
+            //TODO:生成的or语句查询优先级不正确
             var subquery = new SqlLam<Category>().Or(t => t.CatUrlSlug.Contains(search))
                .Join<Post>((c, p) => c.CategoryId == p.Category)
                .Where(p => p.Published).Or(p => p.Title.Contains(search)).SelectCount(p => p.Id)

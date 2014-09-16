@@ -8,11 +8,14 @@
 
     <br />
     <p>
-       @using (Html.BeginForm("Search", "Blog", FormMethod.Get, new { id = "search-form" }))
-{
-    @Html.TextBox("s")   <input value="Search" type="submit">
-}
+        @using (Html.BeginForm("Search", "Blog", FormMethod.Get, new { id = "search-form" }))
+        {
+            @Html.TextBox("s")   <input value="Search" type="submit">
+        }
 
+    </p>
+    <p>
+        Category:@Html.DropDownList("CatList")
     </p>
     <div id="content">
 
@@ -34,3 +37,15 @@
     <div class="pager">
         @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o => o.AddFromQueryString(Request))
     </div>
+    @section scripts
+  {
+        <script type="text/javascript">
+            $(function () {
+                $("#CatList").change(function () {
+                    var link = '@Url.Action("Category", "Blog", ViewContext.GetCombinedRouteValues(null))';
+                    link = link.replace('@Request["category"]', $("#CatList").val());
+                    window.location = link;
+                });
+            });
+        </script>
+    }

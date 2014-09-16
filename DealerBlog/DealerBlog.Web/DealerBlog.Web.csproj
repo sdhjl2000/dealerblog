@@ -280,6 +280,7 @@
     <Content Include="Views\Blog\PostPartial.cshtml" />
     <Content Include="Views\Blog\Category.cshtml" />
     <Content Include="Views\Blog\Tag.cshtml" />
+    <Content Include="Views\Blog\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
