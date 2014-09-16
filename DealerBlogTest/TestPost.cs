@@ -11,7 +11,7 @@ namespace DealerBlogTest
         [Test]
         public void test_post_pagesize()
         {
-            var list= DealerBlog.DAL.PostDAL.Instance.Posts(1,100);
+            var list = DealerBlog.DAL.PostDAL.Instance.Posts(1, 100);
             foreach (var p in list)
             {
                 Console.WriteLine(p.Title);
@@ -62,5 +62,16 @@ namespace DealerBlogTest
             var list = DealerBlog.DAL.PostDAL.Instance.TotalPostsForCategory("programming");
             Console.WriteLine(list);
         }
+
+        [Test]
+        public void test_post_forsearch()
+        {
+            var count = DealerBlog.DAL.PostDAL.Instance.TotalPostsForSearch("asp");
+            Console.WriteLine(count);
+
+            var list = DealerBlog.DAL.PostDAL.Instance.PostsForSearch("asp", 1, 100);
+            Console.WriteLine(list.Count);
+        }
     }
+
 }

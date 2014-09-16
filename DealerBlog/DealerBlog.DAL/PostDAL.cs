@@ -14,7 +14,7 @@ namespace DealerBlog.DAL
 
 
         /// <summary>
-        /// Return collection of posts based on pagination parameters.
+        /// 查询所有的post，同时填充对应的category和tags
         /// </summary>
         /// <param name="pageNo">Page index</param>
         /// <param name="pageSize">Page size</param>
@@ -53,14 +53,22 @@ namespace DealerBlog.DAL
             //return posts.ToList();
 
         }
-
+        /// <summary>
+        /// 对于多对多的关联,需要进行二次查询获取对应的数据
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public List<Tag> GetTags(Post p)
         {
             var subQuery = new SqlLam<PostTagMap>().Where(x=>x.Post_id==p.Id).SelectDistinct(x=>x.Tag_id);
             var query = new SqlLam<Tag>().WhereIsIn(x => x.TagId, subQuery);
             return CONN.SQLQuery<Tag>(query.QueryString, query.QueryParameters).ToList();
         }
-
+        /// <summary>
+        /// 单词查询获取对应的类目
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public Category GetCategory(Post p)
         {
             
@@ -68,7 +76,7 @@ namespace DealerBlog.DAL
         }
 
         /// <summary>
-        /// Return collection of posts belongs to a particular tag.
+        /// 根据tag查询post，查询语句为针对多对多的
         /// </summary>
         /// <param name="tagSlug">Tag's url slug</param>
         /// <param name="pageNo">Page index</param>
@@ -81,6 +89,7 @@ namespace DealerBlog.DAL
                 .Select(o => o).Where(p => p.Published).OrderBy(x => x.PostedOn)
                 .Join<PostTagMap>((o, d) => o.Id == d.Post_id)
                 .Join<Tag>((d, p) => d.Tag_id == p.TagId).Where(t => t.TagUrlSlug == tagSlug).Select(t=>t);
+            
 
             var posts = CONN.SQLQuery<Post, Tag, Post>(query.QueryStringPage(pageSize, pageNo), (p, t) =>
             { p.BlogCategory = GetCategory(p); p.Tags.Add(t); return p; }, query.QueryParameters, splitOn: "TagId");
@@ -89,7 +98,7 @@ namespace DealerBlog.DAL
         }
 
         /// <summary>
-        /// Return collection of posts belongs to a particular category.
+        /// 根据类目查询post,语句为多对一的查询
         /// </summary>
         /// <param name="categorySlug">Category's url slug</param>
         /// <param name="pageNo">Page index</param>
@@ -100,14 +109,19 @@ namespace DealerBlog.DAL
 
             var query = new SqlLam<Post>()
                 .Select(o => o).Where(p => p.Published).OrderBy(x => x.PostedOn)
-                .Join<Category>((o, d) => o.Category == d.CategoryId).Where(t => t.CatUrlSlug == categorySlug);
+                .Join<Category>((o, d) => o.Category == d.CategoryId).Where(t => t.CatUrlSlug == categorySlug).Select(c=>c);
 
-            var posts = CONN.SQLQuery<Post>(query.QueryStringPage(pageSize, pageNo), query.QueryParameters);
+            var posts = CONN.SQLQuery<Post,Category,Post>(query.QueryStringPage(pageSize, pageNo), (p, c) =>
+            {
+                p.BlogCategory = c;
+                p.Tags = GetTags(p);
+                return p;
+            }, query.QueryParameters,splitOn:"CategoryId");
             return posts.ToList();
         }
 
         /// <summary>
-        /// Return collection of posts that matches the search text.
+        /// 根据关键词查询，构建的语句为多级关联查询，首先子查询语句获取主键列表，然后进行in查询
         /// </summary>
         /// <param name="search">search text</param>
         /// <param name="pageNo">Page index</param>
@@ -115,19 +129,35 @@ namespace DealerBlog.DAL
         /// <returns></returns>
         public IList<Post> PostsForSearch(string search, int pageNo, int pageSize)
         {
-            var query = new SqlLam<Post>()
-             .Select(o => o).Where(p => p.Published && (p.Title.Contains(search))).OrderBy(x => x.PostedOn)
-             .Join<Category>((o, d) => o.Category == d.CategoryId).Where(t => t.CatUrlSlug.Contains(search))
-             .Select(p => p);
-
+            var subquery = new SqlLam<Category>().Or(t => t.CatUrlSlug.Contains(search))
+                .Join<Post>((c, p) =>  c.CategoryId==p.Category )
+                .Where(p => p.Published).Or(p => p.Title.Contains(search)).SelectDistinct(p=>p.Id)
+                .Join<PostTagMap>((o, d) => o.Id == d.Post_id)
+                .Join<Tag>((d, p) => d.Tag_id == p.TagId).Or(t => t.TagUrlSlug == search);
+            var query = new SqlLam<Post>().WhereIsIn(p => p.Id, subquery).OrderBy(x => x.PostedOn);
             var posts = CONN.SQLQuery<Post>(query.QueryStringPage(pageSize, pageNo), query.QueryParameters);
             return posts.ToList();
 
+           
+        }
+        /// <summary>
+        /// 获取关键词查询的总数
+        /// </summary>
+        /// <param name="search">search text</param>
+        /// <returns></returns>
+        public int TotalPostsForSearch(string search)
+        {
+            var subquery = new SqlLam<Category>().Or(t => t.CatUrlSlug.Contains(search))
+               .Join<Post>((c, p) => c.CategoryId == p.Category)
+               .Where(p => p.Published).Or(p => p.Title.Contains(search)).SelectCount(p => p.Id)
+               .Join<PostTagMap>((o, d) => o.Id == d.Post_id)
+               .Join<Tag>((d, p) => d.Tag_id == p.TagId).Or(t => t.TagUrlSlug == search);
 
+            return CONN.Count<Post>(subquery.QueryString, subquery.QueryParameters);
         }
 
         /// <summary>
-        /// Return total no. of all or published posts.
+        /// 获取关查询的总数
         /// </summary>
         /// <param name="checkIsPublished">True to count only published posts</param>
         /// <returns></returns>
@@ -137,7 +167,7 @@ namespace DealerBlog.DAL
         }
 
         /// <summary>
-        /// Return total no. of posts belongs to a particular category.
+        /// 获取类目查询的总数
         /// </summary>
         /// <param name="categorySlug">Category's url slug</param>
         /// <returns></returns>
@@ -153,7 +183,7 @@ namespace DealerBlog.DAL
         }
 
         /// <summary>
-        /// Return total no. of posts belongs to a particular tag.
+        /// 获取tag查询的总数
         /// </summary>
         /// <param name="tagSlug">Tag's url slug</param>
         /// <returns></returns>
@@ -168,19 +198,7 @@ namespace DealerBlog.DAL
             return CONN.Count<Post>(query.QueryString, query.QueryParameters);
         }
 
-        /// <summary>
-        /// Return total no. of posts that matches the search text.
-        /// </summary>
-        /// <param name="search">search text</param>
-        /// <returns></returns>
-        public int TotalPostsForSearch(string search)
-        {
-            //return _session.Query<Post>()
-            //               .Where(p => p.Published && (p.Title.Contains(search) || p.Category.Name.Equals(search) || p.Tags.Any(t => t.Name.Equals(search))))
-            //               .Count();
-            return 0;
-        }
-
+       
         /// <summary>
         /// Return posts based on pagination and sorting parameters.
         /// </summary>

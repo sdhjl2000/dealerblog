@@ -35,23 +35,21 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Auto.Lib3.DataAccess">
+    <Reference Include="Auto.Lib3.DataAccess, Version=13.8.30.1300, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Auto.Lib3.DataAccess.13.8.30.1300\lib\Auto.Lib3.DataAccess.dll</HintPath>
     </Reference>
-    <Reference Include="Autohome.CSH.Framework">
+    <Reference Include="Autohome.CSH.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Auto.CSH.Framework.1.0.0\lib\Autohome.CSH.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Autohome.CSH.Framework.Data">
-      <HintPath>..\packages\Auto.CSH.Framework.Data.1.0.4\lib\Autohome.CSH.Framework.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="LambdaSqlBuilder">
-      <HintPath>..\packages\Auto.CSH.Framework.Data.1.0.4\lib\LambdaSqlBuilder.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,6 +73,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

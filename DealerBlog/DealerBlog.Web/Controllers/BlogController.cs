@@ -4,15 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DealerBlog.BLL;
-using DealerBlog.Web.Web.Models;
-
+using MvcPaging;
+using DealerBlog.Entity;
 namespace DealerBlog.Web.Web.Controllers
 {
 
     public partial class BlogController : Controller
     {
         private readonly IPost _postbll;
-
+        private const int pagesize = 5;
 
         public BlogController(IPost ipostbll)
         {
@@ -23,29 +23,30 @@ namespace DealerBlog.Web.Web.Controllers
         // GET: /Blog/
         public virtual ActionResult Index(int page = 1)
         {
-            var list= _postbll.Posts(page, 5);
+          
+            var list= _postbll.Posts(page, pagesize);
             var postcount = _postbll.TotalPosts();
             
-            var postvm = new PostVm() { Posts = list, TotalPosts=postcount,PageSize = 5, PageNumer = page};
-            return View(postvm);
+          
+            return View(new PagedList<Post>(list,page-1,pagesize,postcount));
         }
 
         public virtual ActionResult Category(string category, int page = 1)
         {
-            var list = _postbll.PostsForCategory(category, page, 5);
+            var list = _postbll.PostsForCategory(category, page, pagesize);
             var postcount = _postbll.TotalPostsForCategory(category);
 
-            var postvm = new PostVm() { Posts = list, TotalPosts = postcount, PageSize = 5, PageNumer = page };
-            return View(postvm);
+            return View(new PagedList<Post>(list, page - 1, pagesize, postcount));
+
         }
 
         public virtual ActionResult Tag(string tag,int page = 1)
         {
-            var list = _postbll.PostsForTag(tag,page, 5);
+            var list = _postbll.PostsForTag(tag,page, pagesize);
             var postcount = _postbll.TotalPostsForTag(tag);
+            
+            return View(new PagedList<Post>(list, page - 1, pagesize, postcount));
 
-            var postvm = new PostVm() { Posts = list, TotalPosts = postcount, PageSize = 5, PageNumer = page };
-            return View(postvm);
         }
 
         //

@@ -40,7 +40,7 @@ namespace DealerBlog.Service
 
         public int TotalPostsForTag(string tagSlug)
         {
-            return DealerBlog.DAL.PostDAL.Instance.TotalPostsForCategory(tagSlug);
+            return DealerBlog.DAL.PostDAL.Instance.TotalPostsForTag(tagSlug);
         }
 
         public int TotalPostsForSearch(string search)
