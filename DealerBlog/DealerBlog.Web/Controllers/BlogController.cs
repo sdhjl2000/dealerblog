@@ -38,13 +38,12 @@ namespace DealerBlog.Web.Web.Controllers
         {
             var list = _postbll.PostsForCategory(category, page, pagesize);
             var postcount = _postbll.TotalPostsForCategory(category);
-            IEnumerable<SelectListItem> items = _categorybll.Find(x => x.CategoryId > 0)
-   .Select(c => new SelectListItem
-   {
-       Value = c.CatUrlSlug,
-       Text = c.Name,
-       Selected = c.CatUrlSlug == category
-   });
+            IEnumerable<SelectListItem> items = _categorybll.Find(x => x.CategoryId > 0).Select(c => new SelectListItem
+            {
+                Value = c.CatUrlSlug,
+                Text = c.Name,
+                Selected = c.CatUrlSlug == category
+            });
 
             ViewBag.CatList = items;
             return View(new PagedList<Post>(list, page - 1, pagesize, postcount));

@@ -11,13 +11,13 @@
 <p>
    @using (Html.BeginForm("Search", "Blog", FormMethod.Get, new { id = "search-form" }))
 {
-    @Html.TextBox("s")   <input value="Search" type="submit">
+    @Html.TextBox("s")   <input value="Search" type="submit"> @Html.ActionLink("Create","Create")
 }
 
 </p>
 <div id="content">
 
-    <h1>@ViewBag.Title</h1>
+    
 
     @if (Model.Count > 0)
     {
