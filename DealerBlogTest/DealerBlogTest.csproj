@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestPost.cs" />
+    <Compile Include="Dal\PostDalPost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +69,10 @@
       <Project>{b965f5d0-408f-4ec8-9a05-863e15b769a9}</Project>
       <Name>DealerBlog.Entity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DealerBlog\DealerBlog.Web\DealerBlog.Web.csproj">
+      <Project>{52363c18-ce3b-4050-bb23-698aca0aae91}</Project>
+      <Name>DealerBlog.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -76,6 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mvc\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

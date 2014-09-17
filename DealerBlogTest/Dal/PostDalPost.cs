@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
-namespace DealerBlogTest
+
+namespace DealerBlogTest.Dal
 {
     [TestFixture]
-    public class TestPost
+    public class PostDalTest
     {
         [Test]
         public void test_post_pagesize()
