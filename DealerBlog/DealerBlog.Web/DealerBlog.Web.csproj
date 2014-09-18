@@ -89,6 +89,9 @@
     <Reference Include="NLog">
       <HintPath>..\..\packages\Auto.Lib3.Logging.1.0.0\lib\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="StackExchange.Exceptional">
+      <HintPath>..\..\packages\StackExchange.Exceptional.1.0.111\lib\StackExchange.Exceptional.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -220,12 +223,31 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Content\bootstrap-theme.css" />
+    <EmbeddedResource Include="Content\bootstrap-theme.min.css" />
+    <EmbeddedResource Include="Content\bootstrap.css" />
+    <EmbeddedResource Include="Content\bootstrap.min.css" />
+    <EmbeddedResource Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="App_Code\Helpers.cshtml" />
     <None Include="Properties\PublishProfiles\blog.pubxml" />
     <None Include="Properties\PublishProfiles\dealerblog.pubxml" />
+    <None Include="Scripts\_references.js" />
+    <EmbeddedResource Include="Scripts\bootstrap.js" />
+    <EmbeddedResource Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <EmbeddedResource Include="Scripts\jquery-1.10.2.js" />
+    <EmbeddedResource Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <EmbeddedResource Include="Scripts\jquery.validate.js" />
+    <EmbeddedResource Include="Scripts\jquery.validate.min.js" />
+    <EmbeddedResource Include="Scripts\jquery.validate.unobtrusive.js" />
+    <EmbeddedResource Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <EmbeddedResource Include="Scripts\modernizr-2.6.2.js" />
+    <EmbeddedResource Include="Scripts\respond.js" />
+    <EmbeddedResource Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -261,6 +283,7 @@
     <Content Include="Views\Blog\Category.cshtml" />
     <Content Include="Views\Blog\Tag.cshtml" />
     <Content Include="Views\Blog\Search.cshtml" />
+    <EmbeddedResource Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

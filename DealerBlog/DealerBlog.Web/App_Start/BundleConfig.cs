@@ -9,7 +9,7 @@ namespace DealerBlog.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
 
-            BundleTable.VirtualPathProvider = new EmbeddedResourceVirtualPathProvider.Vpp(typeof(DealerBlog.Res.Resource).Assembly);
+            //BundleTable.VirtualPathProvider = new EmbeddedResourceVirtualPathProvider.Vpp(typeof(DealerBlog.Res.Resource).Assembly);
 
             bundles.Add(new ScriptBundle("~/bundles/jquery")
                 .Include("~/Scripts/jquery-{version}.js"));
